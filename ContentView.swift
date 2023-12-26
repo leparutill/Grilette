@@ -124,7 +124,7 @@ struct ContentView: View {
                         Button(action: {
                             appSettings.isDarkMode.toggle()
                         }) {
-                            Label(appSettings.isDarkMode ? "Aydınlık Mod" : "Karanlık Mod", systemImage: "moon.fill")
+                            Label(appSettings.isDarkMode ? "Light Mode" : "Dark Mode", systemImage: "moon.fill")
                         }
                         Button("Import Notes", action: {
                             // İçe aktarma işlevi
@@ -141,7 +141,7 @@ struct ContentView: View {
                 NewNoteView(viewModel: viewModel, showingSheet: $showingSheet)
                     .environment(\.colorScheme, appSettings.isDarkMode ? .dark : .light)
             }
-            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Ara")
+            .searchable(text: $searchText, placement: .navigationBarDrawer(displayMode: .always), prompt: "Search")
         }
         .environment(\.colorScheme, appSettings.isDarkMode ? .dark : .light)
     }
@@ -189,12 +189,12 @@ struct ContentView: View {
                 }
                 .swipeActions(edge: .trailing, allowsFullSwipe: true) {
                     if note.isPinned {
-                        Button("Çıkar") {
+                        Button("Unpin") {
                             viewModel.pinNote(note)
                         }
                         .tint(.orange)
                     } else {
-                        Button("Sabitle") {
+                        Button("Pin") {
                             viewModel.pinNote(note)
                         }
                         .tint(.blue)
@@ -202,7 +202,7 @@ struct ContentView: View {
                     Button(role: .destructive) {
                         viewModel.deleteNote(note)
                     } label: {
-                        Label("Sil", systemImage: "trash")
+                        Label("Delete", systemImage: "trash")
                     }
                 }
             }
