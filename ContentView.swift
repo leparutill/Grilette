@@ -126,10 +126,10 @@ struct ContentView: View {
                         }) {
                             Label(appSettings.isDarkMode ? "Aydınlık Mod" : "Karanlık Mod", systemImage: "moon.fill")
                         }
-                        Button("İçe Aktar", action: {
+                        Button("Import Notes", action: {
                             // İçe aktarma işlevi
                         })
-                        Button("Dışa Aktar", action: {
+                        Button("Export Notes", action: {
                             // Dışa aktarma işlevi
                         })
                     } label: {
@@ -213,15 +213,15 @@ struct ContentView: View {
 extension DateFormatter {
     static let hourMinute: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "tr_TR")
+        formatter.locale = Locale(identifier: "en_US")
         formatter.dateFormat = "HH:mm"
         return formatter
     }()
 
     static let fullDateTime: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "tr_TR")
-        formatter.dateFormat = "dd.MM.yyyy HH:mm"
+        formatter.locale = Locale(identifier: "en_US")
+        formatter.dateFormat = "MM/dd/yyyy HH:mm"
         return formatter
     }()
 }
@@ -242,27 +242,27 @@ struct NewNoteView: View {
                         .resizable()
                         .scaledToFit()
                 }
-                Button("Görüntü Seç") {
+                Button("Select Image") {
                     showingImagePicker = true
                 }
                 
-                Section("NOT BAŞLIĞI") {
+                Section("NOTE TITLE") {
                     TextField("",text: $title)
                         .autocorrectionDisabled()
                 }
                 
-                Section("NOT İÇERİĞİ") {
+                Section("NOTE CONTENT") {
                     TextEditor(text: $content)
                         .autocorrectionDisabled()
                         .frame(minHeight: 300)
                 }
             }
-            .navigationBarTitle("Yeni Not Oluştur", displayMode: .inline)
+            .navigationBarTitle("Create New Note", displayMode: .inline)
             .navigationBarItems(
-                leading: Button("Vazgeç") {
+                leading: Button("Cancel") {
                     showingSheet = false
                 },
-                trailing: Button("Kaydet") {
+                trailing: Button("Save") {
                     let newNote = Note(title: title, content: content, imageData: image?.jpegData(compressionQuality: 1.0))
                     viewModel.addOrUpdateNote(newNote)
                     showingSheet = false
@@ -327,8 +327,8 @@ struct NoteDetailView: View {
                     .padding()
                                 
                 VStack(alignment: .leading) {
-                    Text("Oluşturulma: \(note.date, formatter: DateFormatter.fullDateTime)")
-                    Text("Düzenlenme: \(note.lastModified, formatter: DateFormatter.fullDateTime)")
+                    Text("Creation: \(note.date, formatter: DateFormatter.fullDateTime)")
+                    Text("Regulation: \(note.lastModified, formatter: DateFormatter.fullDateTime)")
                 }.padding(.horizontal)
                     .font(.caption)
                             
@@ -374,28 +374,28 @@ struct EditNoteView: View {
                         .scaledToFit()
                 }
                 
-                Button("Görüntü Seç") {
+                Button("Select Image") {
                     showingImagePicker = true
                 }
                 
-                Section("NOT BAŞLIĞI") {
+                Section("NOTE TITLE") {
                     TextField("", text: $title)
                         .autocorrectionDisabled()
                 }
                 
-                Section("NOT İÇERİĞİ") {
+                Section("NOTE CONTENT") {
                     TextEditor(text: $content)
                         .autocorrectionDisabled()
                         .frame(minHeight: 300)
                 }
                 
             }
-            .navigationBarTitle("Notu Düzenle", displayMode: .inline)
+            .navigationBarTitle("Edit Note", displayMode: .inline)
             .navigationBarItems(
-                leading: Button("Vazgeç") {
+                leading: Button("Cancel") {
                     showingSheet = false
                 },
-                trailing: Button("Kaydet") {
+                trailing: Button("Save") {
                     let updatedNote = Note(id: note.id, title: title, content: content, date: note.date, imageData: image?.jpegData(compressionQuality: 1.0), isPinned: note.isPinned)
                     viewModel.addOrUpdateNote(updatedNote)
                     showingSheet = false
