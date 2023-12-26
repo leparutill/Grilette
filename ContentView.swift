@@ -213,15 +213,15 @@ struct ContentView: View {
 extension DateFormatter {
     static let hourMinute: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US")
-        formatter.dateFormat = "HH:mm"
+        formatter.locale = Locale(identifier: "en_GB")
+        formatter.dateFormat = "hh:mm a"
         return formatter
     }()
 
     static let fullDateTime: DateFormatter = {
         let formatter = DateFormatter()
-        formatter.locale = Locale(identifier: "en_US")
-        formatter.dateFormat = "MM/dd/yyyy HH:mm"
+        formatter.locale = Locale(identifier: "en_GB")
+        formatter.dateFormat = "dd/MM/yyyy hh:mm a"
         return formatter
     }()
 }
